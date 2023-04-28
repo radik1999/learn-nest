@@ -4,10 +4,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.model';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Role } from './role/role.model';
+import { RoleModule } from './role/role.module';
+import { Profile } from './profile/profile.model';
 
 @Module({
   imports: [
     UserModule,
+    RoleModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql'
@@ -19,7 +23,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       username: 'postgres',
       password: '123',
       database: 'nest',
-      entities: [User],
+      entities: [User, Profile, Role],
       synchronize: true,
     }),
   ],
